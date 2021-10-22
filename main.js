@@ -1,3 +1,15 @@
+// ************************** fatch note from local storage **************************
+
+function fetchNotes() {
+    let Notes = localStorage.getItem("Notes");
+    if (Notes == null) {
+        NoteObj = [];
+    } else {
+        NoteObj = JSON.parse(Notes);
+    }
+    return NoteObj;
+}
+
 // ************************** Add note in screen & local storage **************************
 
 function addNotes() {
@@ -16,12 +28,7 @@ function addNotes() {
         }
 
         // fetch notes from local storage
-        let Notes = localStorage.getItem("Notes");
-        if (Notes == null) {
-            NoteObj = [];
-        } else {
-            NoteObj = JSON.parse(Notes);
-        }
+        NoteObj = fetchNotes();
 
         // add our new note in local storage
         NoteObj.push(newNote);
@@ -47,14 +54,11 @@ function addNotes() {
 function deleteNote(index) {
 
     // fetch notes from local storage
-    let Notes = localStorage.getItem("Notes");
-    if (Notes == null) {
-        NoteObj = [];
-    } else {
-        NoteObj = JSON.parse(Notes);
-    }
+    NoteObj = fetchNotes();
+
+    // delete note
     NoteObj.splice(index, 1);
-    localStorage.setItem("Notes", JSON.stringify(NoteObj));    
+    localStorage.setItem("Notes", JSON.stringify(NoteObj));
 
     // to calling function to display Notes
     displayNotes();
@@ -66,7 +70,7 @@ function deleteNote(index) {
 
 // ************************** edit notes **************************
 
-function editNotes(id){
+function editNotes(id) {
 
     addNoteSection();
     document.querySelector('#saveBtn').style = "display:none;";
@@ -77,29 +81,20 @@ function editNotes(id){
     let Title = document.getElementById("Title");
     let Content = document.getElementById("Content");
 
-    if(Title.value !== '' || Content.value !== ''){
+    if (Title.value !== '' || Content.value !== '') {
         Title.value = '';
         Content.value = '';
     }
 
     // fetch notes from local storage
-    let Notes = localStorage.getItem("Notes");
-    if (Notes == null) {
-        NoteObj = [];
-    } else {
-        NoteObj = JSON.parse(Notes);
-    }
+    NoteObj = fetchNotes();
 
-    // serch object in local storage
-    NoteObj.findIndex(function (element){
+    // Set title & content in InputBox
+    Title.value = NoteObj[id].title;
+    Content.value = NoteObj[id].content;
 
-            Title.value = element.title;
-            Content.value = element.content;
-    });
-
-    // Delte current note 
-    NoteObj.splice(id, 1);
-    localStorage.setItem("Notes", JSON.stringify(NoteObj));
+    // To Store ID in local storage
+    localStorage.setItem('ID', id);
 
     displayNotes();
 
@@ -107,7 +102,13 @@ function editNotes(id){
 
 // ************************** update note **************************
 
-function updateNotes(){
+function updateNotes() {
+    // fetch saved ID from local storage
+    let id = localStorage.getItem('ID');
+
+    // ID= id, note deleted
+    NoteObj.splice(id, 1);
+    localStorage.setItem("Notes", JSON.stringify(NoteObj));
 
     let Title = document.getElementById("Title");
     let Content = document.getElementById("Content");
@@ -119,16 +120,12 @@ function updateNotes(){
     }
 
     // fetch notes from local storage
-    let Notes = localStorage.getItem("Notes");
-    if (Notes == null) {
-        NoteObj = [];
-    } else {
-        NoteObj = JSON.parse(Notes);
-    }
+    NoteObj = fetchNotes();
 
     // add our new note in local storage
     NoteObj.push(newNote);
     localStorage.setItem("Notes", JSON.stringify(NoteObj));
+
     Title.value = '';
     Content.value = '';
 
@@ -139,7 +136,7 @@ function updateNotes(){
     removeNoteSection();
 
     // show success Alert
-    showAlert(4);   
+    showAlert(4);
 
 }
 
@@ -148,12 +145,7 @@ function updateNotes(){
 function displayNotes() {
 
     // fetch notes from local storage
-    let Notes = localStorage.getItem("Notes");
-    if (Notes == null) {
-        NoteObj = [];
-    } else {
-        NoteObj = JSON.parse(Notes);
-    }
+    NoteObj = fetchNotes();
 
     let defaultHtml = `
                     <h5 class="m-2"><i class="bi bi-journal-text mr-2"></i>You don't have any Note</h5>
