@@ -53,18 +53,23 @@ function addNotes() {
 
 function deleteNote(index) {
 
-    // fetch notes from local storage
-    NoteObj = fetchNotes();
+    if(document.querySelector('.btn-danger').classList.contains('aaaa')){
+        // nothing to do
+    }else{
+        // fetch notes from local storage
+        NoteObj = fetchNotes();
+        
+        // delete note
+        NoteObj.splice(index, 1);
+        localStorage.setItem("Notes", JSON.stringify(NoteObj));
+        
+        // to calling function to display Notes
+        displayNotes();
+        
+        // show delete Alert
+        showAlert(2);
+    }
 
-    // delete note
-    NoteObj.splice(index, 1);
-    localStorage.setItem("Notes", JSON.stringify(NoteObj));
-
-    // to calling function to display Notes
-    displayNotes();
-
-    // show delete Alert
-    showAlert(2);
 }
 
 
@@ -76,7 +81,7 @@ function editNotes(id) {
     document.querySelector('#saveBtn').style = "display:none;";
     document.querySelector('#closeBtn').style = "display:none;";
     document.querySelector('#updateBtn').style = "display:block;";
-    document.querySelector('#sectionTitle').innerHTML = 'Update your Note';
+    document.querySelector('.btn-danger').classList.add('aaaa');
 
     let Title = document.getElementById("Title");
     let Content = document.getElementById("Content");
@@ -103,6 +108,9 @@ function editNotes(id) {
 // ************************** update note **************************
 
 function updateNotes() {
+
+    document.querySelector('.btn-danger').classList.remove('aaaa');
+
     // fetch saved ID from local storage
     let id = localStorage.getItem('ID');
 
