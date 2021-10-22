@@ -12,7 +12,7 @@
 <p>link for Preview - <a href="https://malaypatoliya.github.io/Note-App/">PREVIEW</a></p>
 
 <hr>
-<p>Here you can check Preview of this website.</p>
+<p>Here you can check Preview(video) of this website.</p>
 https://user-images.githubusercontent.com/86558306/138467471-fcd03b4a-b182-46bc-8840-28d853831f2a.mp4
 
 <hr>
