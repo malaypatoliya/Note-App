@@ -9,7 +9,7 @@
   <p>3.  Edit Note</p>
 
 <hr>
-<p>link for Preview - <a href="">PREVIEW</a></p>
+<p>link for Preview - <a href="https://malaypatoliya.github.io/Note-App/">PREVIEW</a></p>
 
 <hr>
 <p>Here you can check Preview of this website.</p>
