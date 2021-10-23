@@ -53,25 +53,22 @@ function addNotes() {
 
 function deleteNote(index) {
 
-    if(document.querySelector('.btn-danger').classList.contains('aaaa')){
-        // nothing to do
-    }else{
-        // fetch notes from local storage
-        NoteObj = fetchNotes();
-        
-        // delete note
-        NoteObj.splice(index, 1);
-        localStorage.setItem("Notes", JSON.stringify(NoteObj));
-        
-        // to calling function to display Notes
-        displayNotes();
-        
-        // show delete Alert
-        showAlert(2);
-    }
+    // fetch notes from local storage
+    NoteObj = fetchNotes();
+
+    // delete note
+    NoteObj.splice(index, 1);
+    localStorage.setItem("Notes", JSON.stringify(NoteObj));
+
+    // to calling function to display Notes
+    displayNotes();
+
+    removeNoteSection();
+
+    // show delete Alert
+    showAlert(2);
 
 }
-
 
 // ************************** edit notes **************************
 
@@ -79,9 +76,7 @@ function editNotes(id) {
 
     addNoteSection();
     document.querySelector('#saveBtn').style = "display:none;";
-    document.querySelector('#closeBtn').style = "display:none;";
-    document.querySelector('#updateBtn').style = "display:block;";
-    document.querySelector('.btn-danger').classList.add('aaaa');
+    document.querySelector('#updateBtn').style = "display:block;";   
 
     let Title = document.getElementById("Title");
     let Content = document.getElementById("Content");
@@ -108,8 +103,6 @@ function editNotes(id) {
 // ************************** update note **************************
 
 function updateNotes() {
-
-    document.querySelector('.btn-danger').classList.remove('aaaa');
 
     // fetch saved ID from local storage
     let id = localStorage.getItem('ID');
@@ -170,9 +163,9 @@ function displayNotes() {
                     <p class="mb-0">${element.content}</p>
                     <hr>
                     <div class="btn-container d-flex flex-row-reverse">
-                        <button id="${index}" onclick="deleteNote(this.id)" class="btn-sm btn-danger ml-3"><i
+                        <button id="${index}" onclick="deleteNote(this.id)" class="btn-sm btn-danger ml-3"  style="display: block;"><i
                         class="bi bi-trash"></i></button>
-                        <button id="${index}" onclick="editNotes(this.id)" class="btn-sm btn-primary"><i
+                        <button id="${index}" onclick="editNotes(this.id)" class="btn-sm btn-primary"  style="display: block;"><i
                         class="bi bi-pencil-fill"></i></button>
                     </div>
                 </div>
@@ -227,7 +220,6 @@ function addNoteSection() {
     document.querySelector('#first-container').style = "display:block;";
     document.querySelector('#addNoteBtn').style = "display:none;";
     document.querySelector('#saveBtn').style = "display:block;";
-    document.querySelector('#closeBtn').style = "display:block;";
     document.querySelector('#updateBtn').style = "display:none;";
 }
 
