@@ -107,24 +107,20 @@ function updateNotes() {
     // fetch saved ID from local storage
     let id = localStorage.getItem('ID');
 
-    // ID= id, note deleted
-    NoteObj.splice(id, 1);
-    localStorage.setItem("Notes", JSON.stringify(NoteObj));
-
     let Title = document.getElementById("Title");
     let Content = document.getElementById("Content");
 
     // create one object to add local storage
-    let newNote = {
+    let updatedNote = {
         title: Title.value,
         content: Content.value
     }
 
-    // fetch notes from local storage
+    // fetch notes from local storage & update it
     NoteObj = fetchNotes();
+    NoteObj[id] = updatedNote;
 
-    // add our new note in local storage
-    NoteObj.push(newNote);
+    // // add our updated note in local storage
     localStorage.setItem("Notes", JSON.stringify(NoteObj));
 
     Title.value = '';
@@ -140,6 +136,7 @@ function updateNotes() {
     showAlert(4);
 
 }
+
 
 // ************************** display elements from local storage to screen **************************
 
